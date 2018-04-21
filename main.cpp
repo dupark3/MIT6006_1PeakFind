@@ -19,13 +19,23 @@ int FindLocalMax(int (*matrix)[MAX], int row, int current_column){
 int FindPeak(int (*matrix)[MAX], int row, int column, int mid){
     int max_row = FindLocalMax(matrix, row, mid);
     
+    // if on first or last row, global max is a peak
     if (mid == 0 || mid == column - 1){
         return matrix[max_row][mid];
-    } else if (matrix[max_row][mid] <= matrix[max_row][mid-1]){
+    } 
+
+    // go left if current max is smaller or equal to the left element
+    else if (matrix[max_row][mid] < matrix[max_row][mid-1]){
         return FindPeak(matrix, row, column, mid/2);
-    } else if (matrix[max_row][mid] < matrix[max_row][mid+1]){
+    } 
+
+    // go right if current max is smaller or equal to the right element
+    else if (matrix[max_row][mid] < matrix[max_row][mid+1]){
         return FindPeak(matrix, row, column, mid + mid/2);
-    } else {
+    } 
+
+    // if current max is larger or equal to both left and right, it is a peak
+    else {
         return matrix[max_row][mid];
     }
     
@@ -33,9 +43,9 @@ int FindPeak(int (*matrix)[MAX], int row, int column, int mid){
 
 int main(){
     int arr[][MAX] = {{ 10, 12, 10, 10  },
-                      { 14, 23, 32, 45 },
+                      { 19, 10, 12, 25 },
                       { 15, 29, 21, 19  },
-                      { 16, 27, 19, 20 } };
+                      { 18, 39, 39, 39 } };
 
     int row = 4;
     int column = 4;

@@ -35,12 +35,12 @@ int FindPeak(int (*matrix)[MAX], int row, int column, int mid){
         return matrix[max_row][mid];
     } 
 
-    // go left if current max is smaller or equal to the left element
+    // if current max is smaller than the left element, pass the array with new "mid" column
     else if (matrix[max_row][mid] < matrix[max_row][mid-1]){
-        return FindPeak(matrix, row, column, mid/2);
+        return FindPeak(matrix, row, column, mid - mid/2);
     } 
 
-    // go right if current max is smaller or equal to the right element
+    // if current max is smaller than the right element, pass the array with new "mid" column
     else if (matrix[max_row][mid] < matrix[max_row][mid+1]){
         return FindPeak(matrix, row, column, mid + mid/2);
     } 

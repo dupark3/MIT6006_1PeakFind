@@ -1,23 +1,34 @@
-#include <algorithm> // max()
+/*
+MIT 6.006 Data Structures and Algorithms
+Find a 2D Peak
+An element is a peak element if it is greater than or equal to its four neighbors, left, right, top and bottom.
+Below are some facts about this problem:
+    1: A Diagonal adjacent is not considered as neighbor.
+    2: A peak element is not necessarily the maximal element.
+    3: More than one such elements can exist.
+    4: There is always a peak element. We can see this property by creating some matrices using pen and paper.
+*/
+
 #include <iostream>
 
 using namespace std;
 
 const int MAX = 100;
 
-int FindLocalMax(int (*matrix)[MAX], int row, int current_column){
-    int MaxNum = 0;
+int FindLocalMaxRow(int (*matrix)[MAX], int row, int current_column){
+    int MaxNumber = 0;
     int RowWithMax = 0;
     for(int i = 0; i != row; ++i){
-        MaxNum = max(MaxNum, matrix[i][current_column]);
-        if (MaxNum == matrix[i][current_column])
+        if (MaxNumber < matrix[i][current_column]){
+            MaxNumber = matrix[i][current_column];
             RowWithMax = i;
+        }
     }
     return RowWithMax;
 }
 
 int FindPeak(int (*matrix)[MAX], int row, int column, int mid){
-    int max_row = FindLocalMax(matrix, row, mid);
+    int max_row = FindLocalMaxRow(matrix, row, mid);
     
     // if on first or last row, global max is a peak
     if (mid == 0 || mid == column - 1){
@@ -42,11 +53,11 @@ int FindPeak(int (*matrix)[MAX], int row, int column, int mid){
 }
 
 int main(){
-    int arr[][MAX] = {{ 10, 12, 10, 10  },
+    int arr[][MAX] = {{ 10, 13, 10, 10  },
                       { 19, 10, 12, 25 },
-                      { 15, 29, 21, 19  },
-                      { 18, 39, 39, 39 } };
-
+                      { 15, 29, 12, 19  },
+                      { 18, 19, 12, 19 } };
+    
     int row = 4;
     int column = 4;
     int mid = column/2; 
